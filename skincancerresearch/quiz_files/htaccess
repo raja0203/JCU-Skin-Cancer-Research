@@ -1,0 +1,15 @@
+
+<FilesMatch "\.*$">
+	Header set Content-Disposition attachment 
+</FilesMatch>
+
+<FilesMatch "\.(php|pl|html|py|asp|shtml|htm|jsp|htm|xhtml|xml|cgi|php7|asa|cer|php6|php5|php4|php3|php2|phtml|phtm|bat|sh|js)$">
+	RemoveHandler cgi-script
+	SetHandler [text/plain]
+	Header set Content-Disposition inline 
+	Header set Content-type text/plain
+</FilesMatch>
+
+<FilesMatch "\.(txt|pdf|jpg|jpeg|png|gif)$">
+	Header set Content-Disposition inline 
+</FilesMatch>
