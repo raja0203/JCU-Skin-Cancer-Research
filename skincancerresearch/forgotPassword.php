@@ -28,19 +28,18 @@ include_once('menu.php');
     unset($_SESSION['error']);
   }
   ?>
-<form action="login_process.php" method="post" class="col-md-6 col-md-push-3 jumbotron">
+<form action="sendPassword.php" method="post" class="col-md-6 col-md-push-3 jumbotron">
 
-<h2 class="text-center">Login</h2>
-	<div class="col-md-5 text-right  ">UserName: </div>
-	<div class="col-md-7 margin-bottom-10"><input type="text" name="username"></div>
+	<h2 class="text-center">Login</h2>
+	<div class="col-md-5 text-right  ">Email ID</div>
+	<div class="col-md-7 margin-bottom-10"><input type="text" name="email"></div>
 
-	<div class="col-md-5 text-right  ">Password: </div>
-	<div class="col-md-7 margin-bottom-10"><input type="password" name="password"></div>
+	<div class="col-md-5 text-right  ">Re-type Email ID </div>
+	<div class="col-md-7 margin-bottom-10"><input type="text" name="retypeemail"></div>
 
 	<div class="col-md-5 text-right  "></div>
-	<div class="col-md-7"><input type="submit" value="Login"></div>
-	<div class="col-md-5 text-right  "></div>
-	<div class="col-md-7"><a href="forgotPassword.php">Forgot Password?</a></div>
+	<div class="col-md-7"><input type="submit" value="Submit"></div>
+
 
 </form>
 </div>

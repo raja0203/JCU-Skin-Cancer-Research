@@ -21,9 +21,16 @@ if(isset($_POST['school-name'],$_POST['school-pcode'],$_POST['season'],$_POST['r
 	$aoh = (int)$_POST['aoh'];
 	$anoh = (int)$_POST['anoh'];
 	$userid = $_SESSION['userid'];
-	$sql = "insert into observation_details (school_name,school_postcode,season,rain,cloud_cover,school_ownership,school_setting,school_type,time_of_day,std_withhat,children_withhat,adult_withhat,std_withouthat,children_withouthat,adult_withouthat,std_withotherhat,children_withotherhat,adult_withotherhat,user_id)values ('$school_name','$school_pcode','$season','$rain','$cloud_cover','$school_ownership','$school_setting','$school_type','$time_of_day','$sssh','$ocssh','$assh','$snoh','$ocnoh','$anoh','$soh','$ocoh','$aoh','$userid')";
+	$start_time = $_POST['start-time'];
+	date_default_timezone_set("Australia/Brisbane");
+	$end_time = date("h:i:sa");
+	date_default_timezone_set("Australia/Brisbane");
+	$date = date ("y/m/d");
+	$sql = "insert into observation_details (school_name,school_postcode,season,rain,cloud_cover,school_ownership,school_setting,school_type,time_of_day,std_withhat,children_withhat,adult_withhat,std_withouthat,children_withouthat,adult_withouthat,std_withotherhat,children_withotherhat,adult_withotherhat,date, start_time,end_time, user_id)values ('$school_name','$school_pcode','$season','$rain','$cloud_cover','$school_ownership','$school_setting','$school_type','$time_of_day','$sssh','$ocssh','$assh','$snoh','$ocnoh','$anoh','$soh','$ocoh','$aoh','$date','$start_time','$end_time','$userid')";
 	if($conn -> query($sql)){
 		echo "observations have been uploaded successfully";
+		echo "$start_time";
+		echo "$end_time";
 	}
 	else{
 		echo "connect Error: ". mysqli_error($conn);

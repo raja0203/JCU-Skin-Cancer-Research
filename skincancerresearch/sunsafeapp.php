@@ -101,11 +101,14 @@ if ($result->num_rows > 0) {
 <body>
 <?php
 include_once('menu.php');
+date_default_timezone_set("Australia/Brisbane");
+$start_time = date("h:i:sa");
+
 ?>
 <div style="margin:auto;" class="content">
 	<form action="submit_observation.php" method="post">
 	<div class="col-md-6" style="float:left; text-align: left;">
-		
+			<input type="hidden" name="start-time" value="<?php echo "$start_time";?>">
 			<h1>SunSafe Hat Application</h1>
 			<h2>About Location</h2>
 			<table border="0px">
@@ -119,10 +122,10 @@ include_once('menu.php');
 					<td>
 						<select name="season" id="season">
 							<option value="select-season">Select Season</option>
-							<option value="summer">Summer</option>
-							<option value="autumn">Autumn</option>
-							<option value="winter">Winter</option>
-							<option value="spring">Spring</option>
+							<option value="1">Summer</option>
+							<option value="2">Autumn</option>
+							<option value="3">Winter</option>
+							<option value="4">Spring</option>
 						</select>
 					</td>
 				</tr>
@@ -130,8 +133,8 @@ include_once('menu.php');
 					<th>Rainy day?</th>
 					<td>
 						<select name="rain" id="rain">
-							<option value="no-rain">No Rain</option>
-							<option value="rain">Rain</option>
+							<option value="0">No Rain</option>
+							<option value="1">Rain</option>
 						</select>
 					</td>
 				</tr>
@@ -158,8 +161,8 @@ include_once('menu.php');
 					<th>School ownership</th>
 					<td>
 						<select name="school-ownership">
-							<option value="private">Private</option>
-							<option value="public">Public</option>
+							<option value="0">Private</option>
+							<option value="1">Public</option>
 						</select>
 					</td>
 				</tr>
@@ -167,8 +170,8 @@ include_once('menu.php');
 					<th>School setting</th>
 					<td>
 						<select name="school-setting">
-							<option value="urban">Urban</option>
-							<option value="rural">Rural</option>
+							<option value="0">Urban</option>
+							<option value="1">Rural</option>
 						</select>
 					</td>
 				</tr>
@@ -176,9 +179,9 @@ include_once('menu.php');
 					<th>School Type</th>
 					<td>
 						<select name="school-type">
-							<option value="primary-school">Primary school</option>
-							<option value="combinedp-12">Combined P-12</option>
-							<option value="secondaryonly">Secondary Only</option>
+							<option value="0">Primary school</option>
+							<option value="1">Combined P-12</option>
+							<option value="2">Secondary Only</option>
 						</select> 	
 					</td>
 				</tr>
@@ -187,10 +190,10 @@ include_once('menu.php');
 					<td>
 						<select name="time-of-day">
 							<option value="select time">Select Time</option>
-							<option value="before school">Before School</option>
-							<option value="after school">After School</option>
-							<option value="recess/lunch">Recess/Lunch</option>
-							<option value="outdoor lesson">Outdoor Lesson</option>
+							<option value="1">Before School</option>
+							<option value="2">After School</option>
+							<option value="3">Recess/Lunch</option>
+							<option value="4">Outdoor Lesson</option>
 						</select> 	
 					</td>
 				</tr>

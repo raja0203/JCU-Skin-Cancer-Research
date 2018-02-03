@@ -2,17 +2,6 @@
 session_start();
 include_once('config.php');
 
-
-$sql = "Select blue_card_status from user_details where userid = $_SESSION[userid] ";
-$conn -> query($sql);
-$result = $conn->query($sql);
-echo $conn->error;
-if ($result->num_rows > 0) {
-	$row = $result->fetch_assoc();
-	$status = $row[blue_card_status];
-}
-
-
 ?>
 
 <html>
@@ -24,11 +13,11 @@ if ($result->num_rows > 0) {
     </head>
 <body>
 <?php
-include_once('menu.php');
+include('menu.php');
 ?>
 <div style="margin:auto" class="content">
 
-	<div class="col-md-1 col-md-push-1 text-center" id="have-card">
+	<div>
 		<table>
 			<form action="userObservation.php" method="post">
 				<tr>
@@ -41,35 +30,42 @@ include_once('menu.php');
 				</tr>
 			</form>
 		</table>
-	   <?php
-	   $conn = db_connect();
-	   
-	   $sql = "select Obs_id,first_name, (std_withhat + children_withhat + adult_withhat), (std_withouthat + children_withouthat + adult_withouthat), (std_withotherhat + children_withotherhat + adult_withotherhat)";
-	   $result= $conn -> query($sql);
-	   
-	   print "<table border=1>\n";
-	   
-	   print"<tr>\n";
-	   while ($field = $result ->fetch_feild())
-	   {
-		   print "<th" .strtoupper($field->name) . "</th>\n)";
-	   }
-	   print "</tr>\n\n>";
-	   
-	   while ($row = $result -> fetch_assoc_assoc())
-	   {
-		   print"<tr>\n";
-		   
-		   foreach($row as $col=>$val)
-		   {
-			   print "<td>$val</td>\n";
-		   }
-		   print "</tr>\n\n>";
-	   }
-	   print "</table>\n";
-	   $conn -> close();
-	   ?>
 		
+		
+			<?php
+				echo "<table border=1 style='padding:5px;'>";
+				echo "<tr><th>User ID</th><th>User Name</th><th>Start Time</th><th>End Time</th><th>Sun Safe</th><th>No Safety</th><th>Others</th></tr>";
+				date_default_timezone_set("Australia/Brisbane");
+				$date = date ("y/m/d");
+				$sql = "SELECT * FROM `user_details`,`observation_details` WHERE observation_details.date = '$date' and observation_details.user_id = user_details.userid";
+				$result= $conn -> query($sql);
+				if ($result->num_rows > 0)
+				{
+					while ($row = $result->fetch_assoc())
+					{
+						$user_id = $row["user_id"];
+						$start_time = $row["start_time"];
+						$end_time = $row["end_time"];
+						$sssh = (int)$row["std_withhat"];
+						$ocssh = (int)$row["children_withhat"];
+						$assh = (int)$row["adult_withhat"];
+						$total_withhat = $sssh+$ocssh+$assh;
+						$snoh = (int)$row["std_withouthat"];
+						$ocnoh = (int)$row["children_withouthat"];
+						$anoh = (int)$row["adult_withouthat"];
+						$total_withnohat = $snoh+$ocnoh+$anoh;
+						$soh = (int)$row["std_withotherhat"];
+						$ocoh = (int)$row["children_withotherhat"];
+						$aoh = (int)$row["adult_withotherhat"];
+						$total_withotherhat = $soh+$ocoh+$aoh;
+						$username = $row["first_name"];	
+						$observation_id = $row["Obs_id"];
+						echo "<tr><td>".$user_id."</td><td>".$username."</td><td>".$start_time."</td><td>".$end_time."</td><td>".$total_withhat."</td><td>".$total_withnohat."</td><td>".$total_withotherhat."</td><td style='padding:5px;'><form action='detailedObservation.php' method='post'><input type='hidden' value='$observation_id' name='userid' /><input type='submit' value='view full information' /></form></td></tr>";
+					}
+				}
+				echo "</table>";
+			?>
+		</table>
 	</div>
 	<div class="clear-both"></div>
 
