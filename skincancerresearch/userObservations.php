@@ -37,7 +37,7 @@ include('menu.php');
 				echo "<tr><th>User ID</th><th>User Name</th><th>Start Time</th><th>End Time</th><th>Sun Safe</th><th>No Safety</th><th>Others</th></tr>";
 				date_default_timezone_set("Australia/Brisbane");
 				$date = date ("y/m/d");
-				$sql = "SELECT * FROM `user_details`,`observation_details` WHERE observation_details.date = '$date' and observation_details.user_id = user_details.userid";
+				$sql = "SELECT * FROM `user_details`,`observation_details` WHERE observation_details.user_id = user_details.userid";
 				$result= $conn -> query($sql);
 				if ($result->num_rows > 0)
 				{
@@ -64,6 +64,8 @@ include('menu.php');
 					}
 				}
 				echo "</table>";
+				echo "<form action='excelExport.php' method='post'><input type='submit' value='Export Data to Excel File' /></form>";
+					
 			?>
 		</table>
 	</div>
