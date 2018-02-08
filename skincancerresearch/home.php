@@ -125,6 +125,7 @@ include_once('menu.php');
   <img src="images/jcu-sponsor-logo.png" />
   <img src="images/violets.png" />
   <span class="" style="display:inline-table"><img src="images/rotary.png" /><br>THURINGOWA CENTRAL</span>
+  <img src="images/NQPHN.png" />
 </div>
 
 <div class="col-md-12">

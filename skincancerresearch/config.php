@@ -1,9 +1,9 @@
 <?php
 //define constants for connection info
-define("MYSQLUSER","root");
-define("MYSQLPASS","");
+define("MYSQLUSER","jcubitgr_ict");
+define("MYSQLPASS","123zxc");
 define("HOSTNAME","localhost");
-define("MYSQLDB","skincancerresearch");
+define("MYSQLDB","jcubitgr_scrtest");
 
 // make connection to database
 // function db_connect()

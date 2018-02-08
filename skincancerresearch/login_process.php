@@ -19,6 +19,7 @@ if( isset($_POST["username"])&& isset($_POST["password"])){
 		if($row[isadmin]=='Y')
 			$_SESSION['isadmin'] = 1;
 	}
+	$conn->close();
 }
 if (isset($_SESSION['userid'])){
   header("Location:bluecard.php");
@@ -33,5 +34,4 @@ else{
     echo "<b>You are not logged in</b><br>";
   }
 }
-
 ?>
