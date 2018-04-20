@@ -1,5 +1,5 @@
 <script>
-function formValidation(){
+function  validateForm(){
 	var school_name = document.sunsafeapp.school-name;
 	alert("school Name: "+int(school_name.length));
 	var school_pcode = document.sunsafeapp.school-pcode;
@@ -27,6 +27,48 @@ function formValidation(){
 function startObservation()
 {
 	document.getElementByID("sssh").disabled = true;
+}
+</script>
+<script> function change() {
+    var selectBox = document.getElementById("show");
+    var selected = selectBox.options[selectBox.selectedIndex].value;
+
+    if(selected === '4'){
+        $('#text_area').show();
+    }
+    else{
+        $('#text_area').hide();
+    }
+}
+function startObservatio()
+{
+	document.getElementById("slong").disabled = false;
+	document.getElementById("sshort").disabled = false;
+	document.getElementById("sno").disabled = false;
+	document.getElementById("sshno").disabled = false;
+	document.getElementById("oclong").disabled = false;
+	document.getElementById("ocshort").disabled = false;
+	document.getElementById("ocno").disabled = false;
+	document.getElementById("ocshno").disabled = false;
+	document.getElementById("along").disabled = false;
+	document.getElementById("ashort").disabled = false;
+	document.getElementById("ano").disabled = false;
+	document.getElementById("ashno").disabled = false;
+	document.getElementById("sssh").disabled = false;
+    document.getElementById("snoh").disabled = false;
+    document.getElementById("sno").disabled = false;
+	document.getElementById("ocssh").disabled = false;
+    document.getElementById("ocnoh").disabled = false;
+    document.getElementById("ocoh").disabled = false;
+	document.getElementById("assh").disabled = false;
+    document.getElementById("anoh").disabled = false;
+    document.getElementById("ano").disabled = false;
+	document.getElementById("soh").disabled = false;
+	document.getElementById("aoh").disabled = false;	
+}
+function endobservation(){
+	document.getElementById("submit").disabled = false;
+	
 }
 </script>
 <style>
@@ -72,10 +114,10 @@ $start_time = date("h:i:sa");
 
 ?>
 <div style="margin:25px;" class="content">
-	<form action="submit_carnival_observations.php" method="post">
+	<form action="submit_carnival_observations.php" onsubmit="return validateForm()" method="post">
 	<div class="col-md-5" style="float:left; text-align: left;">
 			<input type="hidden" name="start-time" value="<?php echo "$start_time";?>">
-			<h1>SunSafe Hat Application</h1>
+			<h1>Sports Carnival / Outdoor Event Application</h1>
 			<h2>About Location</h2>
 			<table border="0px">
 				<tr><th>School Name</th><td><input type="text" name="school-name" id="school-name"></td></tr>
@@ -108,7 +150,7 @@ $start_time = date("h:i:sa");
 					<th>Cloud Cover</th>
 					<td>
 						<select name="cloud-cover" id="cloud-cover">
-							<option value="0">0 okta</option>
+							<option value="0">0 okta(Clear Sky)</option>
 							<option value="1">1 okta</option>
 							<option value="2">2 okta</option>
 							<option value="3">3 okta</option>
@@ -116,7 +158,7 @@ $start_time = date("h:i:sa");
 							<option value="5">5 okta</option>
 							<option value="6">6 okta</option>
 							<option value="7">7 okta</option>
-							<option value="8">8 okta (overcast)</option>
+							<option value="8">8 okta(Overcast)</option>
 						</select> 	
 					</td>
 				</tr>
@@ -129,6 +171,7 @@ $start_time = date("h:i:sa");
 						<select name="school-ownership">
 							<option value="0">Private</option>
 							<option value="1">Public</option>
+							<option value="2">Not Applicable</option>
 						</select>
 					</td>
 				</tr>
@@ -148,29 +191,35 @@ $start_time = date("h:i:sa");
 							<option value="0">Primary school</option>
 							<option value="1">Combined P-12</option>
 							<option value="2">Secondary Only</option>
-						</select> 	
+							<option value="3">Non School</option>
+						</select> 
 					</td>
 				</tr>
 				<tr>
 					<th>Time of the Day</th>
 					<td>
-						<select name="time-of-day">
+                       <select name="time-of-day">
 							<option value="select time">Select Time</option>
-							<option value="1">Before School</option>
-							<option value="2">After School</option>
-							<option value="3">Recess/Lunch</option>
-							<option value="4">Outdoor Lesson</option>
+							<option value="1">< 8 am</option>
+							<option value="2">8am - 10am</option>
+							<option value="3">10am - 12pm</option>
+							<option value="4">12pm - 2pm</option>
+							<option value="5">2pm - 4pm</option>
+							<option value="6">4pm - 6pm</option>
+							
 						</select> 	
 					</td>
 				</tr>
 				<tr>
 					<th>Carnival</th>
 					<td>
-						<select name="time-of-day">
-							<option value="0">No Carnival</option>
-							<option value="1">Swimming</option>
-							<option value="2">Athletics</option>
-							<option value="3">Cross Country</option>
+						<select id="show" name="time-of-day" onchange="change()">
+							<option value="0">Swimming</option>
+							<option value="1">Athletics</option>
+							<option value="2">Cross Country</option>
+							<option value="3">Non-School Outdoor Events</option>
+							<option value="4">Other</option> 
+							<textarea id="text_area" class="form-control" type="text" name="text_area" placeholder="Write something" rows="5" cols="50" style="display: none"></textarea>
 						</select> 	
 					</td>
 				</tr>
@@ -179,77 +228,113 @@ $start_time = date("h:i:sa");
 	</div>
 	<div class="col-md-6" style="float:left; text-align: left;">
 		<h3>This section needs to be in landscape</h3>
+			
 			<table border="0px">
-				<tr><td></td><td style="padding:5px;">Sun Safe Hat</td><td style="padding:5px;">Other Hats</td><td style="padding:5px;">No Hats</td><td style="padding:5px;">Long Sleeve</td><td style="padding:5px;">Short Sleeve</td><td style="padding:5px;">No Sleeve</td></tr>
+				<tr><td></td><td style="padding:5px; color:red;">Long Sleeve</td><td style="padding:5px; color:red;">Short Sleeve</td><td style="padding:5px; color:red;">No Sleeve</td><td style="padding:5px; color:red;">No Shirt</td></tr>
 				<tr>
 					<td style="padding:5px;">Students</td>
+					
 					<td style="padding:5px;">
-						<input type="number" name="sssh" id="sssh" min="0" max="100"/>
+						<input type="number" name="slong" id="slong" min="0" max="100" disabled/>
 					</td>
 					<td style="padding:5px;">
-						<input type="number" name="soh" id="soh" min="0" max="100"/>
+						<input type="number" name="sshort" id="sshort" min="0" max="100" disabled/>
 					</td>
 					<td style="padding:5px;">
-						<input type="number" name="snoh" id="snoh" min="0" max="100"/>
+						<input type="number" name="sno" id="sno" min="0" max="100" disabled/>
 					</td>
 					<td style="padding:5px;">
-						<input type="number" name="slong" id="slong" min="0" max="100"/>
-					</td>
-					<td style="padding:5px;">
-						<input type="number" name="sshort" id="sshort" min="0" max="100"/>
-					</td>
-					<td style="padding:5px;">
-						<input type="number" name="sno" id="sno" min="0" max="100"/>
+						<input type="number" name="sshno" id="sshno" min="0" max="100" disabled/>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding:5px;">Other Children</td>
+					
 					<td style="padding:5px;">
-						<input type="number" name="ocssh" id="ocssh" min="0" max="100"/>
+						<input type="number" name="oclong" id="oclong" min="0" max="100" disabled/>
 					</td>
 					<td style="padding:5px;">
-						<input type="number" name="ocoh" id="ocoh" min="0" max="100"/>
+						<input type="number" name="ocshort" id="ocshort" min="0" max="100" disabled/>
 					</td>
 					<td style="padding:5px;">
-						<input type="number" name="ocnoh" id="ocnoh" min="0" max="100"/>
+						<input type="number" name="ocno" id="ocno" min="0" max="100" disabled/>
 					</td>
 					<td style="padding:5px;">
-						<input type="number" name="oclong" id="oclong" min="0" max="100"/>
-					</td>
-					<td style="padding:5px;">
-						<input type="number" name="ocshort" id="ocshort" min="0" max="100"/>
-					</td>
-					<td style="padding:5px;">
-						<input type="number" name="ocno" id="ocno" min="0" max="100"/>
+						<input type="number" name="ocshno" id="ocshno" min="0" max="100" disabled/>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding:5px;">Adults</td>
+					
 					<td style="padding:5px;">
-						<input type="number" name="assh" id="assh" min="0" max="100"/>
+						<input type="number" name="along" id="along" min="0" max="100" disabled/>
 					</td>
 					<td style="padding:5px;">
-						<input type="number" name="aoh" id="aoh" min="0" max="100"/>
+						<input type="number" name="ashort" id="ashort" min="0" max="100" disabled/>
 					</td>
 					<td style="padding:5px;">
-						<input type="number" name="anoh" id="anoh" min="0" max="100"/>
+						<input type="number" name="ano" id="ano" min="0" max="100" disabled/>
 					</td>
 					<td style="padding:5px;">
-						<input type="number" name="along" id="along" min="0" max="100"/>
+						<input type="number" name="ashno" id="ashno" min="0" max="100" disabled/>
+					</td>
+				</tr>
+				
+			</table>
+			<table border="0px">
+				<tr><td></td><td style="padding:5px; color:blue;">Sun Safe Hat*</td><td style="padding:5px; color:blue;">Other Hats</td><td style="padding:5px; color:blue;">No Hats</td></tr>
+				<tr>
+					<td style="padding:5px;">Students</td>
+					<td style="padding:5px;">
+						<input type="number" name="sssh" id="sssh" min="0" max="100" disabled/>
 					</td>
 					<td style="padding:5px;">
-						<input type="number" name="ashort" id="ashort" min="0" max="100"/>
+						<input type="number" name="soh" id="soh" min="0" max="100" disabled/>
 					</td>
 					<td style="padding:5px;">
-						<input type="number" name="ano" id="ano" min="0" max="100"/>
+						<input type="number" name="snoh" id="snoh" min="0" max="100" disabled/>
 					</td>
+					
+				</tr>
+				<tr>
+					<td style="padding:5px;">Other Children</td>
+					<td style="padding:5px;">
+						<input type="number" name="ocssh" id="ocssh" min="0" max="100" disabled/>
+					</td>
+					<td style="padding:5px;">
+						<input type="number" name="ocoh" id="ocoh" min="0" max="100" disabled/>
+					</td>
+					<td style="padding:5px;">
+						<input type="number" name="ocnoh" id="ocnoh" min="0" max="100" disabled/>
+					</td>
+					
+				</tr>
+				<tr>
+					<td style="padding:5px;">Adults</td>
+					<td style="padding:5px;">
+						<input type="number" name="assh" id="assh" min="0" max="100" disabled/>
+					</td>
+					<td style="padding:5px;">
+						<input type="number" name="aoh" id="aoh" min="0" max="100" disabled/>
+					</td>
+					<td style="padding:5px;">
+						<input type="number" name="anoh" id="anoh" min="0" max="100" disabled/>
+					</td>
+					
 				</tr>
 				<tr>
 					<td style="padding:5px;">
-						<input type="submit" value="Submit Observation" name="submit" id="submit" style="background-color:blue;color:white;"/>
+				<input type="button" value="End Observation" onclick="endobservation()" />
+				</td>
+				</tr>
+				<tr>
+					<td style="padding:5px;">
+						<input type="submit" value="Submit Observation" name="submit" id="submit" style="background-color:blue;color:white;" disabled/>
 					</td>
 				</tr>
 			</table>
+			
+			
 	</div> 
 	</form>
 </div>
